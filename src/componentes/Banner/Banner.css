@@ -1,0 +1,9 @@
+.banner{
+    background-image: url(/public/imagens/10321522.jpg);
+    text-align: center;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.banner img{
+    max-width: 100%;
+}
