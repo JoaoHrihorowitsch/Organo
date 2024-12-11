@@ -1,44 +1,63 @@
+import { useState } from "react";
 import Botao from "../Botao/Botao";
 import CampoTexto from "../CampoTexto/CampoTexto";
 import ListaSuspensa from "../ListaSuspensa/ListaSuspensa";
 import "./Fomulario.css";
 
-const Formulario = () => {
-  const times = [
-    'Athletico-PR',
-    'Atlético-GO',
-    'Atlético-MG',
-    'Bahia',
-    'Botafogo',
-    'Corinthians',
-    'Criciúma',
-    'Cruzeiro',
-    'Cuiabá',
-    'Flamengo',
-    'Fluminense',
-    'Fortaleza',
-    'Grêmio',
-    'Internacional',
-    'Juventude',
-    'Palmeiras',
-    'Red Bull Bragantino',
-    'São Paulo',
-    'Vasco da Gama',
-    'Vitória'
-];
+const Formulario = (props) => {
 
-const Salvar = (evento) => {
+const [nome, setNome] = useState('')
+const [imagem, setImagem] = useState('')
+const [posicao, setPosicao] = useState('')
+const [time, setTime] = useState('')
+
+const aoSalvar = (evento) => {
   evento.preventDefault()
-  console.log('Form foi submetido')
+  props.aoJogadorCadastrado({
+    nome, 
+    imagem, 
+    posicao, 
+    time
+  })
+  setNome('')
+  setPosicao('')
+  setImagem('')
+  setTime('')
 }
 
   return (
     <section className="formulario">
-      <form onSubmit={Salvar}>
-        <CampoTexto obrigatorio={true} label="Nome Jogador" placeholder="Digite o nome" />
-        <CampoTexto obrigatorio={true} label="Posição" placeholder="Digite a posição" />
-        <CampoTexto label="Imagem" placeholder="" />
-        <ListaSuspensa obrigatorio={true} label="Times" itens={times}/>
+      
+      <form onSubmit={aoSalvar}>
+        <h2>Preencha para criar o Jogador</h2>
+
+        <CampoTexto
+          obrigatorio={true}
+          label="Nome Jogador" 
+          placeholder="Digite o nome"
+          valor={nome}
+          alterado = {valor => setNome(valor)}
+        />
+        <CampoTexto 
+          obrigatorio={true} 
+          label="Posição" 
+          placeholder="Digite a posição" 
+          valor={posicao}
+          alterado = {valor => setPosicao(valor)}
+        />
+        <CampoTexto 
+          label="Imagem" 
+          placeholder="Digite a url da imagem"
+          valor={imagem}
+          alterado = {valor => setImagem(valor)}
+        />
+        <ListaSuspensa 
+          obrigatorio={true} 
+          label="Times" 
+          itens={props.times}
+          valor={time}
+          alterado = {valor => setTime(valor)}
+        />
         <Botao>
           Criar Card
         </Botao>
