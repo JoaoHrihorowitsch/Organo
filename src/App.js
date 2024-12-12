@@ -122,6 +122,10 @@ function App() {
 
   const [jogadores, setJogadores] = useState([])
 
+  function deletarJogador(nome, imagem){
+    setJogadores(jogadores.filter((jogador) => !(jogador.nome === nome && jogador.imagem === imagem)))
+  }
+
   const aoNovoJogadorAdicionado = (jogador) => {
     setJogadores([...jogadores, jogador])
     console.log(jogador)
@@ -139,7 +143,8 @@ function App() {
           corPrimaria={time.corPrimaria} 
           corSecundaria={time.corSecundaria} 
           corFonte={time.corFonte}
-          jogadores={jogadores.filter(jogador => jogador.time == time.nome)}  
+          jogadores={jogadores.filter(jogador => jogador.time == time.nome)}
+          aoDeletar = {deletarJogador}
         />)}
       
     </div>
